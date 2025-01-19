@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+#######################################################################
+echo "before computing MEM explicitly"
+echo $MEM
+echo "after computing MEM explicitly"
+#if [ -z "$MEM" ]; then
+totalprocpernode="$(lscpu|gawk '/^CPU\(s\):/{print $2}')"
+MEM=$(gawk "/MemTotal/{print int(\$2*0.95*$nprocpernode/$totalprocpernode/1024)}" /proc/meminfo)
+echo $MEM
+echo $totalprocpernode
+#fi
+#######################################################################
+run_gaussian() {
+    local _gin="$1"
+    local _gou="$2"
+
+    sed -i -E -e "s/(%nprocshared *= *).+/\1$nprocpernode/" -e "s/(%mem *= *).+/\1${MEM}MB/" $_gin
+
+    /usr/bin/time -ao $FILELOG $PROG < $_gin >& $_gou || exit -1
+}
+
+if [ -e "jobs" ]; then
+    for fi in $(cat jobs); do
+        job="${fi#gaussian-}"
+        job="${job%.gjf}"
+
+        if [ ! -e "${job}-opt.log" ]; then
+            run_gaussian $fi ${job}-opt.log
+        fi
+
+        # solvation
+        #~/scripts/HPC/g_setup_solv.sh -c $fi
+        #run_gaussian $fi ${dH}-solv.log
+    done
+else
+    fi=gaussian.com
+    if [ ! -e 'gaussian.log' ]; then
+        run_gaussian $fi gaussian.log
+    fi
+fi

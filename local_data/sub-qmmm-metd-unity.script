@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=48
+#SBATCH --cpus-per-task=1
+##SBATCH --mem=0
+#SBATCH --time=48:00:00
+#SBATCH --job-name=name
+#SBATCH --output stdout.%j
+#SBATCH --error stderr.%j
+#SBATCH --partition=standard
+
+#######################################################################
+CPUINFO=$(lscpu | grep 'Model name:')
+if [[ "${CPUINFO}" =~ "Intel" ]]; then
+    # Intel CPUs
+  export g16root='/work/pengbai_umass_edu/tools/gaussian/g16.c01.avx2'
+elif [[ "${CPUINFO}" =~ "AMD" ]]; then
+    # AMD CPUs
+  export g16root='/work/pengbai_umass_edu/tools/gaussian/g16.c01.zen2'
+else
+    # Unknown CPU architecture
+    :
+fi
+
+export GV_DIR='/work/pengbai_umass_edu/tools/gaussian/gaussview-6.0.16'
+export GAUSS_MEMDEF=100000000
+export GAUSS_EXEDIR="$g16root/bsd:$g16root/local:$g16root/extras:$g16root"
+export PERLLIB="$g16root/bsd"
+export _DSM_BARRIER=SHM
+export _RLD_ARGS='-log /dev/null'
+export GDVBASIS="$g16root/basis"
+export GAUSS_LEXEDIR="$g16root/linda-exe"
+export GAUSS_LFLAGS='-workerwait 900 -opt "Tsnet.Node.lindarsharg: ssh "'
+export PATH="${PATH:+$PATH:}$g16root/bsd:$g16root:$g16root/bin:$GV_DIR/bin"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$g16root/bsd:$g16root/local:$g16root/extras:$g16root:$GV_DIR/lib:$GV_DIR/lib/MesaGL"
+export MANPATH="${MANPATH:+$MANPATH:}$g16root/bsd"
+export LIBPATH="${LIBPATH:+$LIBPATH:}$GV_DIR/lib"
+export PATH="${PATH:+$PATH:}$GV_DIR"
+
+# PROG="$g16root/g16"
+
+source /etc/profile
+ulimit -s unlimited
+[ -d '/work/pengbai_umass_edu/unitymodules' ] && module use --append /work/pengbai_umass_edu/unitymodules
+module rm icc gcc
+module load oneapi/2022.2.3
+module load icc/2022.0.2
+module load mkl/2022.0.2
+
+if lscpu | grep 'Model name:' | grep -q 'EPYC'; then
+  export MKL_DEBUG_CPU_TYPE=5
+  export MKL_ENABLE_INSTRUCTIONS=AVX2
+fi
+
+export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
+
+# The code files are group accessible
+BASEDIR="/work/pengbai_umass_edu/tools/lammps/intel-impi-mkl"
+
+MPIRUN='mpirun -np'
+export PATH="$BASEDIR/bin:$PATH"
+export LD_LIBRARY_PATH="$BASEDIR/lib:$LD_LIBRARY_PATH"
+# PROG="$BASEDIR/bin/lmp"
+
+module load miniconda/22.11.1-1
+source /modules/apps/miniconda/22.11.1-1/etc/profile.d/conda.sh
+conda activate qmmm_metd
+
+sub_script=$(scontrol show job $SLURM_JOB_ID | gawk '/Command=/{split($1,sf,"="); print sf[2]}')
+asset_dir=$(dirname "$sub_script")
+source $asset_dir/util-slurm.sh
+source sub-qmmm-metd.script
+
+echo "All done overall"
+
+exit 0

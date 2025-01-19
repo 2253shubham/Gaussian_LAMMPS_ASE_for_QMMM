@@ -1,0 +1,17 @@
+compute 1 all property/local patom1 patom2
+compute 2 all pair/local dist eng force fx fy fz
+dump 1 all local 1 pair_int_QM_part.dump index c_1[*] c_2[*]
+compute 3 all property/local btype batom1 batom2
+compute 4 all bond/local dist engpot force fx fy fz
+dump 2 all local 1 bond_ener_QM_part.dump index c_1[*] c_2[*]
+compute 5 all property/local atype aatom1 aatom2 aatom3
+compute 6 all angle/local theta eng force fx fy fz
+dump 3 all local 1 angle_ener_QM_part.dump index c_1[*] c_2[*]
+variable p internal 0.0
+variable cos equal 0.5*(1+cos(v_p))
+variable cos2 equal 0.5*(1-cos(2*v_p))
+variable cos3 equal 0.5*(1+cos(3*v_p))
+variable cos4 equal 0.5*(1-cos(4*v_p))
+compute 7 all property/local dtype datom1 datom2 datom3 datom4
+compute 8 all dihedral/local phi v_cos v_cos2 v_cos3 v_cos4 set phi p
+dump 4 all local 1 dihedral_ener_QM_part.dump index c_1[*] c_2[*]

@@ -1,0 +1,18 @@
+pair_coeff 1 1 0.066 3.5
+pair_coeff 2 2 0.066 3.5
+pair_coeff 3 3 0.03 2.5
+bond_coeff 1 268 1.53
+bond_coeff 2 340 1.09
+bond_coeff 3 268 1.53
+bond_coeff 4 340 1.09
+angle_coeff 1 58.35 112.7
+angle_coeff 2 37.5 110.7
+angle_coeff 3 37.5 110.7
+angle_coeff 4 37.5 110.7
+angle_coeff 5 33.0 107.8
+angle_coeff 6 33.0 107.8
+dihedral_coeff 1 1.74 -0.157 0.279 0
+dihedral_coeff 2 0 0 0.366 0
+dihedral_coeff 3 0 0 0.366 0
+dihedral_coeff 4 0 0 0.318 0
+dihedral_coeff 5 0 0 0.318 0

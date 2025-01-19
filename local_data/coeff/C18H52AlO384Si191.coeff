@@ -1,0 +1,79 @@
+pair_coeff 1 1 0.044 2.3
+pair_coeff 2 2 0.066 3.5
+pair_coeff 3 3 0.066 3.5
+pair_coeff 4 4 0.03 2.5
+pair_coeff 5 5 0 0
+pair_coeff 6 6 0.115 3.6
+pair_coeff 7 7 0.105 3.3
+pair_coeff 8 8 0.044 2.3
+bond_coeff 1 0 1.59
+bond_coeff 2 0 0.12
+bond_coeff 3 0 1.59
+bond_coeff 4 0 1.59
+bond_coeff 5 0 1.43
+bond_coeff 6 0 1.47
+bond_coeff 7 268 1.53
+bond_coeff 8 340 1.09
+bond_coeff 9 268 1.53
+bond_coeff 10 340 1.09
+bond_coeff 11 0 0.55
+angle_coeff 1 0 107.8
+angle_coeff 2 0 107.8
+angle_coeff 3 0 148.0
+angle_coeff 4 0 107.5
+angle_coeff 5 0 107.8
+angle_coeff 6 0 107.5
+angle_coeff 7 99.96 112.0
+angle_coeff 8 0 112.0
+angle_coeff 9 0 107.8
+angle_coeff 10 0 148.0
+angle_coeff 11 0 107.8
+angle_coeff 12 0 148.0
+angle_coeff 13 0 107.5
+angle_coeff 14 0 107.5
+angle_coeff 15 58.35 112.7
+angle_coeff 16 37.5 110.7
+angle_coeff 17 58.35 112.7
+angle_coeff 18 37.5 110.7
+angle_coeff 19 37.5 110.7
+angle_coeff 20 0 110.7
+angle_coeff 21 0 110.7
+angle_coeff 22 33.0 107.8
+angle_coeff 23 33.0 107.8
+angle_coeff 24 0 107.8
+angle_coeff 25 0 107.5
+dihedral_coeff 1 0 0 0 0
+dihedral_coeff 2 0 0 0 0
+dihedral_coeff 3 0 0 0 0
+dihedral_coeff 4 0 0 0 0
+dihedral_coeff 5 0 0 0 0
+dihedral_coeff 6 0 0 0 0
+dihedral_coeff 7 0 0 0 0
+dihedral_coeff 8 0 0 0 0
+dihedral_coeff 9 0 0 0 0
+dihedral_coeff 10 0 0 0 0
+dihedral_coeff 11 0 0 0 0
+dihedral_coeff 12 0 0 0 0
+dihedral_coeff 13 0 0 0 0
+dihedral_coeff 14 1.711 -0.5 0.663 0
+dihedral_coeff 15 0 0 0.468 0
+dihedral_coeff 16 0 0 0 0
+dihedral_coeff 17 0 0 0 0
+dihedral_coeff 18 0 0 0 0
+dihedral_coeff 19 0 0 0 0
+dihedral_coeff 20 0 0 0 0
+dihedral_coeff 21 0 0 0 0
+dihedral_coeff 22 0 0 0 0
+dihedral_coeff 23 1.74 -0.157 0.279 0
+dihedral_coeff 24 0 0 0.366 0
+dihedral_coeff 25 1.74 -0.157 0.279 0
+dihedral_coeff 26 0 0 0.366 0
+dihedral_coeff 27 0 0 0.366 0
+dihedral_coeff 28 0 0 0.366 0
+dihedral_coeff 29 1.74 -0.157 0.279 0
+dihedral_coeff 30 0 0 0.366 0
+dihedral_coeff 31 0 0 0 0
+dihedral_coeff 32 0 0 0.318 0
+dihedral_coeff 33 0 0 0.318 0
+dihedral_coeff 34 0 0 0.366 0
+dihedral_coeff 35 0 0 0 0

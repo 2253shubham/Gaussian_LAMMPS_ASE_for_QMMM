@@ -1,0 +1,6 @@
+neigh_modify delay 10 every 1 check yes 
+thermo 10
+thermo_style custom step etotal ke temp pe epair emol ebond eangle edihed eimp evdwl ecoul elong etail press vol pxx pyy pzz pxy pxz pyz
+thermo_modify norm no flush no line multi
+minimize 1.0e-4 1.0e-6 1000 10000
+dump forces all custom 1 forces.lammpsdump id mol type fx fy fz

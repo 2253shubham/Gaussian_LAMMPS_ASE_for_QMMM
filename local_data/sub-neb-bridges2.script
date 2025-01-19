@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=28
+#SBATCH --cpus-per-task=1
+##SBATCH --mem=0
+#SBATCH --time=48:00:00
+#SBATCH --job-name=name
+#SBATCH --output stdout.%j
+#SBATCH --error stderr.%j
+#SBATCH --partition=RM
+
+#######################################################################
+module rm anaconda3 gaussian
+module add anaconda3/2020.11
+module add gaussian/G16_RevC01
+
+export GAUSS_EXEDIR="$(dirname $PROG)"
+export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
+
+MPIRUN='mpirun -np'
+PROG="$(which g16)"
+
+sub_script=$(scontrol show job $SLURM_JOB_ID | gawk '/Command=/{split($1,sf,"="); print sf[2]}')
+asset_dir=$(dirname "$sub_script")
+source $asset_dir/util-slurm.sh
+source sub-neb.script
+
+exit 0

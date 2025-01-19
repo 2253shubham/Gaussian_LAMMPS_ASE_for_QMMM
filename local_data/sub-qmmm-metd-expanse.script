@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=24
+#SBATCH --cpus-per-task=1
+##SBATCH --mem=0
+#SBATCH --time=48:00:00
+#SBATCH --job-name=name
+#SBATCH --output stdout.%j
+#SBATCH --error stderr.%j
+#SBATCH --partition=compute
+
+#######################################################################
+# Loading cpu
+echo "entering sub-qmmm-metd-expanse.script"
+module rm cpu
+module add cpu/0.15.4
+module list
+
+# Loading Gaussian
+module add gaussian/16.C.01
+module list
+# PROG="$(which g16)"
+
+# Loading python
+conda --version
+module load anaconda3/2020.11
+conda --version
+echo $PATH
+source /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/anaconda3-2020.11-weucuj4yrdybcuqro5v3mvuq3po7rhjt/etc/profile.d/conda.sh
+conda activate qmmm_metd
+conda info
+
+# Loading LAMMPS
+#module add intel/19.1.1.217 intel-mkl/2019.1.144 intel-mpi/2019.8.254
+module add intel/19.1.1.217 intel-mkl/2019.1.144
+module add openmpi
+module list
+export MKL_DEBUG_CPU_TYPE=5
+export MKL_ENABLE_INSTRUCTIONS=AVX2
+BASEDIR="/home/baip/tools/lammps/intel-impi-mkl"
+MPIRUN='mpirun -np'
+export PATH="$BASEDIR/bin:$PATH"
+#export LD_LIBRARY_PATH="$BASEDIR/lib64:$HOME/.conda/envs/qmmm_metd/lib:$HOME/.conda/pkgs${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="$BASEDIR/lib64:$HOME/.conda/envs/qmmm_metd/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+basedir="/home/baip/tools/lammps"
+echo $basedir
+export PYTHONPATH="$basedir/python"
+export LAMMPS_PYTHON_TOOLS="$basedir/tools/python/pizza"
+export PATH="${PATH:+$PATH:}$basedir/build:$basedir/tools/python:$basedir/tools/ch2lmp"
+# PROG="$BASEDIR/bin/lmp"
+echo "loaded all modules"
+
+# export ASE_GAUSSIAN_COMMAND='g16 < PREFIX.com > PREFIX.log'
+
+# MPIRUN='srun -c 1 --cpu_bind=cores --mpi=pmi2 -n'
+
+
+sub_script=$(scontrol show job $SLURM_JOB_ID | gawk '/Command=/{split($1,sf,"="); print sf[2]}')
+asset_dir=$(dirname "$sub_script")
+echo "now computing allocations requested, entering util-slurm.sh"
+source $asset_dir/util-slurm.sh
+echo "now entering sub-qmmm-metd-script"
+source sub-qmmm-metd.script
+
+exit 0

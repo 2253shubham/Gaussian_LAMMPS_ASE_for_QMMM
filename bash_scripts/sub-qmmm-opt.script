@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+#######################################################################
+clean_up_last_run() {
+    local _i
+    if [ -e 'eqlb.traj' ] || [ -e 'prod.traj' ]; then
+        _i=$(get_next_backup)
+        mkdir RUN$_i
+        [ -e 'eqlb.traj' ] && mv eqlb* RUN$_i/
+        [ -e 'prod.traj' ] && mv prod* RUN$_i/
+        [ -e 'energy-data.txt' ] && mv energy-data.txt RUN$_i/
+        [ -e 'forces-data.txt' ] && mv forces-data.txt RUN$_i/
+        [ -e 'gaussian.com' ] && mv gaussian* RUN$_i/
+        find . -maxdepth 1 -type f -name '*lammps.log' -exec mv {} RUN$_i/ \;
+        find . -maxdepth 1 -type f -name '*energy.txt' -exec mv {} RUN$_i/ \;
+        echo $_i
+    else
+        echo 0
+    fi
+}
+
+get_next_backup() {
+    local _i=1
+    while [ -e RUN$_i ]; do
+        ((_i++))
+    done
+    echo $_i
+}
+
+run_ase_opt() {
+    local _i
+    _i=$(clean_up_last_run)
+    REF_DATA='ref_data_opt.txt'
+    chg="$(\grep CHARGE $REF_DATA | cut -d= -f 2)"
+    mult="$(\grep MULTIPLICITY $REF_DATA | cut -d= -f 2)"
+    fl1="$(\grep LOG_FILE_NAME_1 $REF_DATA | cut -d= -f 2)"
+    ftr1="$(\grep TRAJ_FILE_NAME_1 $REF_DATA | cut -d= -f 2)"
+    fl2="$(\grep LOG_FILE_NAME_2 $REF_DATA | cut -d= -f 2)"
+    ftr2="$(\grep TRAJ_FILE_NAME_2 $REF_DATA | cut -d= -f 2)"
+    qmr1="$(\grep QM_REGION_1 $REF_DATA | cut -d= -f 2)"
+    qmr2="$(\grep QM_REGION_2 $REF_DATA | cut -d= -f 2)"
+    nfzr1="$(\grep NON_FRZ_REGION_1 $REF_DATA | cut -d= -f 2)"
+    nfzr2="$(\grep NON_FRZ_REGION_2 $REF_DATA | cut -d= -f 2)"
+    galb1="$(\grep GAUSSIAN_LABEL_1 $REF_DATA | cut -d= -f 2)"
+    galb2="$(\grep GAUSSIAN_LABEL_1 $REF_DATA | cut -d= -f 2)"
+    struct1="$(\grep STRUCTURE1 $REF_DATA | cut -d= -f 2)"
+    bsset1="$(\grep BASIS_SET_1 $REF_DATA | cut -d= -f 2)"
+    bsset2="$(\grep BASIS_SET_2 $REF_DATA | cut -d= -f 2)"
+    tol1="$(\grep TOLERANCE_1 $REF_DATA | cut -d= -f 2)"
+    tol2="$(\grep TOLERANCE_1 $REF_DATA | cut -d= -f 2)"
+    qm_metd="$(\grep QM_METHOD $REF_DATA | cut -d= -f 2)"
+    xyzfl1="$(\grep XYZ_FILE_NAME_1 $REF_DATA | cut -d= -f 2)"
+    xyzfl2="$(\grep XYZ_FILE_NAME_1 $REF_DATA | cut -d= -f 2)"
+    runtype="$(\grep RUN_TYPE $REF_DATA | cut -d= -f 2)"
+    coulcalc="$(\grep COUL_CALC $REF_DATA | cut -d= -f 2)"
+    inptraj1=""
+    inptraj2=""
+    [ -e RUN$_i/STEP1.traj ] && inptraj1="RUN$_i/STEP1.traj" # assumes that "STEP1.traj" is the STEP1 trajectory filename
+    [ -e RUN$_i/STEP2.traj ] && inptraj2="RUN$_i/STEP2.traj" # assumes that "STEP2.traj" is the STEP2 trajectory filename
+    memory=$(scontrol show job $SLURM_JOBID | grep 'mem' | tail -1 | awk '{print $1}' | cut -d'=' -f4 | cut -d',' -f1 | sed 's/M//')
+    echo $memory
+    nnodes=$(scontrol show job $SLURM_JOBID | grep 'NumNodes' | awk '{print $1}' | cut -d'=' -f2 | sed 's/M//')
+    ncores=$(scontrol show job $SLURM_JOBID | grep 'NumCPUs' | awk '{print $2}' | cut -d'=' -f2 | sed 's/M//')
+    conda info
+    module list
+    echo "entering code" # in next line $MPIRUN $nnodes is optional
+    python optimize_dd_qm_gaus_mm_lammps.py -c $chg -m $mult -fl1 $fl1 -fl2 $fl2 -ftr1 $ftr1 -ftr2 $ftr2 -mem $memory -nproc 1 -qi1 $qmr1 -qi2 $qmr2 -nfz1 $nfzr1 -nfz2 $nfzr2 -gl1 $galb1 -gl2 $galb2 -s $struct1 -tol1 $tol1 -tol2 $tol2 -bs1 $bsset1 -bs2 $bsset2 -qm_metd $qm_metd -xyz_fl1 $xyzfl1 -xyz_fl2 $xyzfl2 -r_st $runtype -inp_tr_fl1 $inptraj1 -inp_tr_fl2 $inptraj2 -coul_calc $coulcalc
+    grep "Total Energy" "energy-data.txt" | cut -d '=' -f 2 >"Tot_energy.txt"
+    grep "QM Energy" "energy-data.txt" | cut -d '=' -f 2 >"QM_QM_sub_energy.txt"
+    grep "MM Energy from LAMMPS of QM" "energy-data.txt" | cut -d '=' -f 2 >"MM_QM_sub_energy.txt"
+    grep "MM Energy from LAMMPS of entire" "energy-data.txt" | cut -d '=' -f 2 >"MM_entire_energy.txt"
+}
+#######################################################################
+
+run_ase_opt
+
+echo "All done in sub-qmmm-opt.script"

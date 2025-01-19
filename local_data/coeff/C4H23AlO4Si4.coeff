@@ -1,0 +1,43 @@
+pair_coeff 1 1 0.044 2.3
+pair_coeff 2 2 0.066 3.5
+pair_coeff 3 3 0.066 3.5
+pair_coeff 4 4 0.03 2.5
+pair_coeff 5 5 0 0
+pair_coeff 6 6 0.115 3.6
+pair_coeff 7 7 0.044 2.3
+bond_coeff 1 340 1.59
+bond_coeff 2 340 1.59
+bond_coeff 3 0 1.43
+bond_coeff 4 0 1.47
+bond_coeff 5 268 1.53
+bond_coeff 6 340 1.09
+bond_coeff 7 0 0.55
+bond_coeff 8 340 1.09
+angle_coeff 1 33.0 107.8
+angle_coeff 2 0 107.5
+angle_coeff 3 99.96 112.0
+angle_coeff 4 0 112.0
+angle_coeff 5 33.0 107.8
+angle_coeff 6 0 107.5
+angle_coeff 7 0 107.5
+angle_coeff 8 58.35 112.7
+angle_coeff 9 37.5 110.7
+angle_coeff 10 0 110.7
+angle_coeff 11 33.0 107.8
+angle_coeff 12 33.0 107.8
+angle_coeff 13 0 107.8
+angle_coeff 14 0 107.5
+dihedral_coeff 1 -0.574 -0.997 0 0
+dihedral_coeff 2 -0.574 -0.997 0 0
+dihedral_coeff 3 1.711 -0.5 0.663 0
+dihedral_coeff 4 0 0 0.468 0
+dihedral_coeff 5 0.65 -0.25 0.67 0
+dihedral_coeff 6 0 0 0.76 0
+dihedral_coeff 7 0.65 -0.25 0.67 0
+dihedral_coeff 8 0 0 0.76 0
+dihedral_coeff 9 0 0 0 0
+dihedral_coeff 10 0 0 0.366 0
+dihedral_coeff 11 0 0 0 0
+dihedral_coeff 12 0 0 0.366 0
+dihedral_coeff 13 0 0 0.318 0
+dihedral_coeff 14 0 0 0.366 0
