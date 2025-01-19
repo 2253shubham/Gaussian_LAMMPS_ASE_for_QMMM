@@ -32,13 +32,12 @@ from ase import Atoms
 from ase.calculators.qmmm import SimpleQMMM
 from ase.calculators.gaussian import Gaussian
 from ase.calculators.gromacs import Gromacs
-from QM_MM_implemetation.bin_metd.modules.mm_lammps import (init_atoms, set_calc_params, reset_positions, get_charges, get_atom_types_from_pdb_file) 
-from QM_MM_implemetation.bin_metd.modules.mm_lammps import MM_LAMMPS 
-from QM_MM_implemetation.bin_metd.modules.simpleqmmm_mod import SmpQMMM
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.mm_lammps import (init_atoms, set_calc_params, reset_positions, get_charges, get_atom_types_from_pdb_file) 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.mm_lammps import MM_LAMMPS 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.simpleqmmm_mod import SmpQMMM
 from ase import neighborlist
 import itertools as it
 import os
-import numpy as np
 import re
 
 

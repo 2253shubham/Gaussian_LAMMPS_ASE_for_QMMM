@@ -6,16 +6,16 @@ import copy
 from ase.calculators.gaussian import Gaussian
 from ase.md.velocitydistribution import MaxwellBoltzmannDistribution
 from ase.io import read, Trajectory, write, trajectory
-from nvtberendsen_mod import NVTBerendsen_mod 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.nvtberendsen_mod import NVTBerendsen_mod 
 import ase.parallel as mpi
 import numpy as np
 from plumed import Plumed
 from ase.calculators.gaussian import Gaussian
 from ase.calculators.plumed import Plumed
 from mm_lammps import (init_atoms, set_calc_params, reset_positions, get_charges, get_atom_types_from_pdb_file) 
-from mm_lammps import MM_LAMMPS 
-from simpleqmmm_mod import SmpQMMM
-from atoms_mod import Atoms_mod
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.mm_lammps import MM_LAMMPS 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.simpleqmmm_mod import SmpQMMM
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.atoms_mod import Atoms_mod
 from ase import neighborlist
 from ase import units
 import itertools as it

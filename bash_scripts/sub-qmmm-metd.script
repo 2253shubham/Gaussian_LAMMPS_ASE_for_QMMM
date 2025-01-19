@@ -30,7 +30,7 @@ get_next_backup() {
 run_ase_md() {
     local _i
     _i=$(clean_up_last_run)
-    REF_DATA='ref_data.txt'
+    REF_DATA='../parameters/ref_data.txt'
     chg="$(\grep CHARGE $REF_DATA | cut -d= -f 2)"
     mult="$(\grep MULTIPLICITY $REF_DATA | cut -d= -f 2)"
     eqfl="$(\grep EQLB_TRAJ_FILE_NAME $REF_DATA | cut -d= -f 2)"
@@ -63,7 +63,7 @@ run_ase_md() {
     conda info
     module list
     echo "entering code" # in next line $MPIRUN $nnodes is optional
-    python qmmm_metd.py -c $chg -m $mult -e_tr_fl $eqfl -p_tr_fl $prfl -mem $memory -nproc 1 -qi1 $qmr1 -qi2 $qmr2 -nfz1 $nfzr1 -nfz2 $nfzr2 -gl $galb -s1 $struct1 -bs $bsset -qm_metd $qm_metd -metdy_setup_1 $metystpfl1 -metdy_setup_2 $metystpfl2 -xyz_fl $xyzfl -esteps $eqsteps -psteps $prsteps -temp $temp -ts $timestep -r_st $runtype -inp_e_tr_fl $inpeqlbtraj -inp_p_tr_fl $inpprdtraj -coul_calc $coulcalc
+    python ../qmmm_metd.py -c $chg -m $mult -e_tr_fl $eqfl -p_tr_fl $prfl -mem $memory -nproc 1 -qi1 $qmr1 -qi2 $qmr2 -nfz1 $nfzr1 -nfz2 $nfzr2 -gl $galb -s1 $struct1 -bs $bsset -qm_metd $qm_metd -metdy_setup_1 $metystpfl1 -metdy_setup_2 $metystpfl2 -xyz_fl $xyzfl -esteps $eqsteps -psteps $prsteps -temp $temp -ts $timestep -r_st $runtype -inp_e_tr_fl $inpeqlbtraj -inp_p_tr_fl $inpprdtraj -coul_calc $coulcalc
     grep "Total Energy" "energy-data.txt" | cut -d '=' -f 2 >"Tot_energy.txt"
     grep "QM Energy" "energy-data.txt" | cut -d '=' -f 2 >"QM_QM_sub_energy.txt"
     grep "MM Energy from LAMMPS of QM" "energy-data.txt" | cut -d '=' -f 2 >"MM_QM_sub_energy.txt"

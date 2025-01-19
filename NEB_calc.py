@@ -14,14 +14,14 @@ from ase.optimize import FIRE as DampedDynamics
 from ase.optimize import BFGS as QuasiNewton
 import ase.parallel as mpi
 import numpy as np
-from asemc.util import sys
+from asemc.util import sys # needs asemc!!
 from ase import Atoms
 from simpleqmmm_mod import SmpQMMM
 from ase.calculators.qmmm import SimpleQMMM
 from ase.calculators.gaussian import Gaussian
 from ase.calculators.gromacs import Gromacs
-from mm_lammps import (init_atoms, set_calc_params, reset_positions, get_atom_types_from_pdb_file) 
-from mm_lammps import MM_LAMMPS 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.mm_lammps import (init_atoms, set_calc_params, reset_positions, get_atom_types_from_pdb_file) 
+from Gaussian_LAMMPS_ASE_for_QMMM.modules.mm_lammps import MM_LAMMPS 
 import itertools as it
 import os
 
@@ -196,7 +196,7 @@ def set_QM_calc(calc_label, method, basis_file): # QM calc of QM subsystem
     return calc_gau
 
 
-def write_neb(images=None):
+def write_neb(images=None): # needs asemc!!
     '''Convert an ASE trajectory to an ARC movie file.'''
 
     if images is None:

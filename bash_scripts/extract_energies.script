@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SPECS='specs.txt'
+SPECS='../parameters/specs.txt'
 nimages="$(\grep NIMAGES $SPECS | cut -d= -f 2)"
 
 grep -o '\-\([0-9]*\.\)\?[0-9]\+' 0-0/gaussian-1-data.xyz | head -n 1 >energies.txt

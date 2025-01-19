@@ -20,7 +20,7 @@ get_next_backup() {
 }
 
 run_neb() {
-    SPECS='specs.txt'
+    SPECS='../parameters/specs.txt'
 
     nimages="$(\grep NIMAGES $SPECS | cut -d= -f 2)"
     if [ -z "$nimages" ]; then
@@ -61,7 +61,7 @@ run_neb() {
     data6=$(head -n 6 $REF_DATA | tail -n 1)
     data7=$(head -n 7 $REF_DATA | tail -n 1)
 
-    $MPIRUN $mpi -c $nprocperimage ./NEB_calc.py -rs react.pdb -ps prod.pdb -qi1 $data1 -qi2 $data2 -fz1 $data3 -fz4 $data4 -c $data5 -m $data6 -metd $data7 -ni $nimages -ngc $nguide -ngp neb -ngs "$suffix" -ppi $nprocperimage -gl1 gaussian1 -gl2 gaussian2 -bs1 gen1.basis -bs2 gen2.basis ${tmp_options}
+    $MPIRUN $mpi -c $nprocperimage ./../NEB_calc.py -rs react.pdb -ps prod.pdb -qi1 $data1 -qi2 $data2 -fz1 $data3 -fz4 $data4 -c $data5 -m $data6 -metd $data7 -ni $nimages -ngc $nguide -ngp neb -ngs "$suffix" -ppi $nprocperimage -gl1 gaussian1 -gl2 gaussian2 -bs1 gen1.basis -bs2 gen2.basis ${tmp_options}
 }
 #######################################################################
 clean_up_last_run

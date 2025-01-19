@@ -30,7 +30,7 @@ get_next_backup() {
 run_ase_opt() {
     local _i
     _i=$(clean_up_last_run)
-    REF_DATA='ref_data_opt.txt'
+    REF_DATA='../parameters/ref_data_opt.txt'
     chg="$(\grep CHARGE $REF_DATA | cut -d= -f 2)"
     mult="$(\grep MULTIPLICITY $REF_DATA | cut -d= -f 2)"
     fl1="$(\grep LOG_FILE_NAME_1 $REF_DATA | cut -d= -f 2)"
@@ -64,7 +64,7 @@ run_ase_opt() {
     conda info
     module list
     echo "entering code" # in next line $MPIRUN $nnodes is optional
-    python optimize_dd_qm_gaus_mm_lammps.py -c $chg -m $mult -fl1 $fl1 -fl2 $fl2 -ftr1 $ftr1 -ftr2 $ftr2 -mem $memory -nproc 1 -qi1 $qmr1 -qi2 $qmr2 -nfz1 $nfzr1 -nfz2 $nfzr2 -gl1 $galb1 -gl2 $galb2 -s $struct1 -tol1 $tol1 -tol2 $tol2 -bs1 $bsset1 -bs2 $bsset2 -qm_metd $qm_metd -xyz_fl1 $xyzfl1 -xyz_fl2 $xyzfl2 -r_st $runtype -inp_tr_fl1 $inptraj1 -inp_tr_fl2 $inptraj2 -coul_calc $coulcalc
+    python ../optimize_dd_qm_gaus_mm_lammps.py -c $chg -m $mult -fl1 $fl1 -fl2 $fl2 -ftr1 $ftr1 -ftr2 $ftr2 -mem $memory -nproc 1 -qi1 $qmr1 -qi2 $qmr2 -nfz1 $nfzr1 -nfz2 $nfzr2 -gl1 $galb1 -gl2 $galb2 -s $struct1 -tol1 $tol1 -tol2 $tol2 -bs1 $bsset1 -bs2 $bsset2 -qm_metd $qm_metd -xyz_fl1 $xyzfl1 -xyz_fl2 $xyzfl2 -r_st $runtype -inp_tr_fl1 $inptraj1 -inp_tr_fl2 $inptraj2 -coul_calc $coulcalc
     grep "Total Energy" "energy-data.txt" | cut -d '=' -f 2 >"Tot_energy.txt"
     grep "QM Energy" "energy-data.txt" | cut -d '=' -f 2 >"QM_QM_sub_energy.txt"
     grep "MM Energy from LAMMPS of QM" "energy-data.txt" | cut -d '=' -f 2 >"MM_QM_sub_energy.txt"
