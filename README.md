@@ -1,7 +1,7 @@
 # QMMM Calculations implementing Gaussian and LAMMPS with ASE
 
 <p class="center-content"> 
-  <img src="https://github.com/2253shubham/Gaussian_ONIOM_plus_ASE_for_QMMM/blob/main/docs/Gaussian_plus_ASE.png" alt=""/>
+  <img src="https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/blob/main/docs/Gaussian_LAMMPS_ASE.png" alt=""/>
 </p>
 
 ASE + Gaussian ONIOM methodology, although is better than standalone Gaussian ONIOM approach, it suffers from insufficient options for available force-fields to model MM region and inability to implement periodic boundary conditions.
@@ -15,7 +15,7 @@ This repository contains the scripts to perform QMMM calculations and implement 
 
 ## Documentation
 
-[Documentation](https://github.com/2253shubham/Gaussian_ONIOM_plus_ASE_for_QMMM/blob/main/docs/documentation.md)
+[Documentation](https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/tree/main/docs)
 
 
 
@@ -28,18 +28,18 @@ This repository contains the scripts to perform QMMM calculations and implement 
 
 You may need to have an installed Gaussian software or if not, install/compile Gaussian (version - g16) in your local system (or where you plan to ruin this code). Following which, the required environment variables can be set by the followiong lines:
 ```bash
-module spider gaussian      # list installed Gaussain versions
+module spider gaussian      # list installed Gaussian versions
 module load gaussian        # load default version
 ```
 
 You will also need LAMMPS installed/compiled in your running unit. The environment variables can be set using the following:
 ```bash
-module spider LAMMPS      # list installed Gaussain versions
+module spider LAMMPS      # list installed LAMMPS versions
 module load LAMMPS        # load default version
 ```
 
 Required python version  - 3.9 or higher \
-Download and install [requirements.txt](https://github.com/2253shubham/Gaussian_ONIOM_plus_ASE_for_QMMM/blob/main/requirements.txt) to install python library dependencies.
+Download and install [requirements.txt](https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/blob/main/requirements.txt) to install python library dependencies.
 ```bash
 pip install -r /path/to/requirements.txt
 ```
