@@ -15,7 +15,7 @@ This repository contains the scripts to perform QMMM calculations and implement 
 
 ## Documentation
 
-[Documentation](https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/tree/main/docs)
+[Documentation](https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/blob/main/docs/documentation.md)
 
 
 
