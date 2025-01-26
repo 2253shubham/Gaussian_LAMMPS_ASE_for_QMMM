@@ -4,7 +4,7 @@
   <img src="https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/blob/main/docs/Gaussian_LAMMPS_ASE.png" alt=""/>
 </p>
 
-ASE + Gaussian ONIOM methodology, although is better than standalone Gaussian ONIOM approach, it suffers from insufficient options for available force-fields to model MM region and inability to implement periodic boundary conditions.
+[ASE](https://wiki.fysik.dtu.dk/ase/) + [Gaussian ONIOM](https://gaussian.com/oniom/) methodology, although is better than standalone Gaussian ONIOM approach, it suffers from insufficient options for available force-fields to model MM region and inability to implement periodic boundary conditions.
 
 To address these, another algorithm was developed, which combines Gaussian with LAMMPS, integrated with ASE. 
 
@@ -26,13 +26,13 @@ This repository contains the scripts to perform QMMM calculations and implement 
 
 ## Environment Variables
 
-You may need to have an installed Gaussian software or if not, install/compile Gaussian (version - g16) in your local system (or where you plan to ruin this code). Following which, the required environment variables can be set by the followiong lines:
+You may need to have an installed Gaussian software or if not, install/compile Gaussian ([version - g16](https://gaussian.com/gaussian16)) in your local system (or where you plan to ruin this code). Following which, the required environment variables can be set by the followiong lines:
 ```bash
 module spider gaussian      # list installed Gaussian versions
 module load gaussian        # load default version
 ```
 
-You will also need LAMMPS installed/compiled in your running unit. The environment variables can be set using the following:
+You will also need [LAMMPS](https://docs.lammps.org/Manual.html) installed/compiled in your running unit. The environment variables can be set using the following:
 ```bash
 module spider LAMMPS      # list installed LAMMPS versions
 module load LAMMPS        # load default version
