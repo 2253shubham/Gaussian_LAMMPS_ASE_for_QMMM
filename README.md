@@ -4,7 +4,7 @@
   <img src="https://github.com/2253shubham/Gaussian_LAMMPS_ASE_for_QMMM/blob/main/docs/Gaussian_LAMMPS_ASE.png" alt=""/>
 </p>
 
-[ASE](https://wiki.fysik.dtu.dk/ase/) + [Gaussian ONIOM](https://gaussian.com/oniom/) methodology, although is better than standalone Gaussian ONIOM approach, it suffers from insufficient options for available force-fields to model MM region and inability to implement periodic boundary conditions.
+[ASE + Gaussian ONIOM](https://github.com/2253shubham/Gaussian_ONIOM_plus_ASE_for_QMMM) methodology, although is better than standalone Gaussian ONIOM approach, it suffers from insufficient options for available force-fields to model MM region and inability to implement periodic boundary conditions.
 
 To address these, another algorithm was developed, which combines Gaussian with LAMMPS, integrated with ASE. 
 
