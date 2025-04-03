@@ -26,7 +26,7 @@ This repository contains the scripts to perform QMMM calculations and implement 
 
 ## Environment Variables
 
-You may need to have an installed Gaussian software or if not, install/compile Gaussian ([version - g16](https://gaussian.com/gaussian16)) in your local system (or where you plan to ruin this code). Following which, the required environment variables can be set by the followiong lines:
+You may need to have an installed Gaussian software or if not, install/compile Gaussian ([version - g16](https://gaussian.com/gaussian16)) in your local system (or where you plan to run this code). Following which, the required environment variables can be set by the followiong lines:
 ```bash
 module spider gaussian      # list installed Gaussian versions
 module load gaussian        # load default version
